@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03_rendering-and-vdom</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        function Clock() {
+            return (
+                <div>
+                <h1>실시간 시계</h1>
+                <h2>현재 시간: {new Date().toLocaleTimeString()}</h2>    
+                </div>
+            );
+        }
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        // 이번에는 render를 tick라는 함수에 넣는다.
+        function tick() {
+            root.render(<Clock/>);
+        }
+        // 1초마다 렌더링이 될 수 있도록 tick 함수를 1초마다 실행캐 함.
+        setInterval(tick, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 선택자</title>
+    <!--
+    <style>
+        /* 태그 선택자: HTML 태그 이름을 그대로 사용 */
+        h2 {
+            color: blue;
+        }
+
+        /* 클래스 선택자: 점(.)으로 시작. 여러 요소에 '별명'을 붙여 그룹으로 꾸밀 떄 사용 */
+        .highlight-text {
+        background-color: yellow;
+        }
+
+        /* 아이디 선택자: 샵(#)으로시작. 페이지에서 '단 하나뿐인' 중요한 요소에 사용 */
+        #main-title {
+        border-bottom: 3px solid red;
+        }
+
+        /* 후손 선택자: 띄어쓰기로 구분. 특정 요소 '안에 있는' 모든 후손을 선택 */
+        #lecture-list li {
+         font-weight: bold;
+         background-color: aqua;
+        }
+
+        /* 자손 선택자: > 기호로 구분. 특정 요소의 '바로 아래 자식'만 선택 */
+        body > p {
+         font-size: 20px;
+        }
+    </style> -->
+
+    <!-- 방법 3: 외부 스타일 시트 - <link> 태그로 CSS 파일 연결 -->
+     <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 id="main-title">css 선택자</h1>
+    
+    <p>
+        CSS는 HTML에 옷을 입히는 언어이다.
+        내가 꾸미고 싶은 대상을 정확히 '선택'하는 것이 가장 중요하다.
+    </p>
+
+    <h2>오늘의 강의 목록</h2>
+    <ul id="lecture-list">
+        <li>태그 선택자</li>
+        <li class="highlight-text">클래스 선택자</li>
+        <li>아이디 선택자</li>
+        <li class="highlight-text">후손/자손 선택자</li>
+    </ul>
+
+    <!-- 방법 1: 인라인 스타일 - 테그에 직접 style 속성 사용(권장하지 않음)(단, 다른 선택자보단 스타일 적용우선순위가 더 높다.) -->
+     <p style="color: green; font-style: italic;">이 문단은 인라인 스타일로 직접 꾸몄습니다.</p>
+    <!-- 범위가 좁을수록 우선순위가 높음 -->
+    <!-- 인라인 > 아이디 > 클래스 > 태그 (선택자가 같을 경우 최신으로 작성된 스타일이 적용된다.) -->
+
+</body>
+</html>

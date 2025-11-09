@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>마우스와 키보드 이벤트</title>
+    <style>
+        .area {
+            background: lightgray; border: 1px solid black;
+            min-height: 100px; margin-top: 10px; padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>마우스와 키보드 이벤트</h1>
+<hr>
+<h3>1. 마우스 이벤트</h3>
+<pre>
+    사용자의 마우스 움직임에 반응합니다.
+    `click`(클릭), `dblclick`(더블클릭), `mousedown`(누를때), `mouseup`(뗄때), `mousemove`(움직일때) 등이 있습니다.
+    </pre>
+
+<button id="mouse-btn">여기를 클릭/우클릭 해보세요</button>
+<div id="mouse-area" class="area"></div>
+<script>
+    const $mouseBtn = document.getElementById('mouse-btn');
+    const $mouseArea = document.getElementById('mouse-area');
+
+    // ###### click: 마우스 왼쪽 버튼을 눌렀다 뗐을 때 발생
+    // innerHTML: 
+    // dbclick을 테스트 해보고 싶다면 여기서 click만 dbclick으로 변경.
+    $mouseBtn.addEventListener('click', (e) => {
+        $mouseArea.innerHTML += 'click 이벤트 발생!<br>';
+    });
+
+    // ###### mousedown: 마우스 버튼을 누르는 순간 발생
+    // - e.button: 0:왼쪽, 1:가운데(휠), 2:오른쪽. 어떤 버튼을 눌렀는지 표시.
+    $mouseBtn.addEventListener('mousedown', (e) => {
+        $mouseArea.innerHTML += `mousedown, button = ${e.button}<br>`;
+    });
+
+    // ###### contextmenu: 마우스 오른쪽 버튼을 눌렀을 때
+    // preventDefault: 기본 동작 막기
+    $mouseBtn.addEventListener('contextmenu', (e) => {
+        e.preventDefault(); // 브라우저 기본 메뉴가 뜨는것을 막는다.
+    })
+</script>
+
+<hr>
+
+<h3>2. 키보드 이벤트</h3>
+<pre>
+    사용자의 키보드 입력에 반응합니다.
+    - keydown: 키를 누르는 순간 (누르고 있는 동안 계속 발생)
+    - keyup: 키에서 손을 떼는 순간
+    - event.key: 입력된 문자를 알려줌 (ex: 'a', 'A', 'Enter')
+    - event.code: 실제 물리적인 키 코드를 알려줌 (ex: 'KeyA', 'Enter')
+    </pre>
+
+<input type="text" id="keyboard-input" placeholder="아무 키나 입력하세요">
+<div id="keyboard-area" class="area"></div>
+<script>
+    const $keyboardInput = document.getElementById('keyboard-input');
+    const $keyboardArea = document.getElementById('keyboard-area');
+
+    // 키를 누를 때 입력된 문자와 실제 물리적인 키 코드를 알려줌
+    $keyboardInput.addEventListener('keydown', (e) => {
+        $keyboardArea.innerHTML = `
+        keydown 이벤트 발생!<br>
+        e.key: ${e.key}<br>
+        e.code: ${e.code}`;
+
+    // 실무 예시: 눌린 키가 enter키라면 '검색'버튼이 실행되도록 하는 기능
+    if(e.key === 'Enter') {
+        console.log('검색을 실행합니다.');
+        // 실제 검색 함수를 여기에 호출
+    }
+    });
+</script>
+</body>
+</html>

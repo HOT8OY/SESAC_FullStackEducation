@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01_rendering-list</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        const fruits = ['🍎사과', '🍊오렌지', '🍓딸기', '🍍파인애플'];
+
+        // 기본 리스트 렌더링(map 활용)
+        function FruitList() {
+            return (
+                <div>
+                    <h2>과일 목록</h2>
+                    <ul>
+                        {/* key: React가 리스트를 렌더링할 때 각 항목을 구분할 수 있게 도와주는 고유한 값*/}
+                        {fruits.map( (fruit, index) => (
+                            <li key={index}>{fruit}</li>
+                        ) )}
+                    </ul>
+                </div>
+            );
+        }
+
+        const users = [
+            { id: 1, name: '홍길동'},
+            { id: 2, name: '유관순'},
+            { id: 3, name: '이순신'},
+        ]
+
+        function UserList() {
+            return (
+                <>
+                    <h2>회원 목록</h2>
+                    <ul>
+                        {users.map(user => (
+                            <li key={user.id}>{user.name}</li>
+                        ))}    
+                    </ul>
+                </>
+            )
+        }
+
+        function App() {
+            return (
+                <>
+                    <FruitList />
+                    <UserList />
+                </>
+            )
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+    </script>
+</body>
+</html>

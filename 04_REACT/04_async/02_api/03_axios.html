@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03_axios</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <script>
+
+        const API_URL = 'https://jsonplaceholder.typicode.com/users/1';
+
+        // fetch를 이용한 방법
+        async function callApiWithFetch() {
+            try{
+                const response = await fetch(API_URL);
+                const data = await response.json(); // .json()으로 직접 파싱해야 함
+                console.log(data);
+            } catch(e) {
+                console.error(e);
+            }
+        }
+
+        callApiWithFetch();
+
+        // axios를 이용한 방법
+        // <title> 밑에 CDN 붙여넣기
+
+        async function callApiWithAxios() {
+            try{
+                const response = await axios.get(API_URL);
+                const data = response.data; // JSON 파싱이 자동으로 되어 response.data에 담겨있다.
+                console.log(data);
+                console.log(response);
+            } catch(e) {
+                console.error(e);
+            }
+        }
+        
+        callApiWithAxios();
+
+
+    </script>
+</body>
+</html>

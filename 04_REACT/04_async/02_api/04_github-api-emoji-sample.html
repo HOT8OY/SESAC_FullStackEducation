@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- 깃허브 이모지 api : 'https://api.github.com/emojis' -->
+
+    <script type="text/babel">
+        // 사용자의 입력을 받아 API로 부터 해당 입력에 맞는걸 찾아와서 ImageBox에 출력하는 걸 만들기.
+
+        const API_URL = 'https://api.github.com/emojis';
+        const { useState, useEffect } = React;
+
+        /* 넣을 것
+        input 상자:
+        검색 버튼 */
+
+        // 여기선 실제 검색 로직이 뭔지 전혀 알지 못한다.덕분 어떤 검색 기능에도 재사용될 수 있다.
+        function SearchBox({onSearch}) {
+
+            const [inputText, setInputText ] = useState('');
+
+            const handleSearchClick = () => {
+                onSearch(inputText);
+            };
+
+            const handleKeyDown = (e) => {
+                if(e.key === 'Enter') {
+                    onSearch(inputText);
+                }
+            };
+
+            return (
+                <>
+                    <input 
+                        type="text"
+                        placeholder="이모지를 입력해주세요"
+                        value={inputText}
+                        onChange={(e) => setInputText(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        />
+                    <button onClick={handleSearchClick}>검색</button>
+                </>
+            );
+        }
+
+        /* 넣을 것
+        default 상태: 이모지를 검색해주세요 (결과 없음) 텍스트를 표시
+        input에 입력 후 button을 누르면 해당 img를 api에서 획득하여 출력 */
+        // 단순하게 imgUrl이 있으면 이미지를, 없으면 안내문을 출력합니다.
+        function ImageBox({imgUrl}) {
+            if (imgUrl) {
+                return <img src={imgUrl} alt="emoji" />;
+            }
+            return <p>이모지를 검색해주세요(결과 없음)</p>;
+        };
+
+        // App에서 모든 데이터와 상태(전체 이모지 목록, 검색 결과 URL)를 관리.
+        // API 통신을 책임지고, 자식들의 행동에 따라 상태를 업데이트
+        function App() {
+
+            const [emojis, setEmojis] = useState(null); // 전체 이모지 목록 객체
+            const [imgUrl, setImgUrl] = useState(null); // 검색 결과 이미지 URL
+
+            // Mount 시점에 '단 한 번' 이모지 목록을 가져온다.
+            // 항상 emoji를 API에서 찾아오는게 아니라 처음에 가져와서 저장해둔다.
+            useEffect(() => {
+                async function fetchEmojis() {
+                    try{
+                        const response = await axios.get(API_URL)
+                        setEmojis(response.data); // 가져온 데이터를 state에 저장
+                    } catch (e) {
+                        console.error("이모지 목록을 불러오는 데 실패했습니다.", e);
+                    }
+                }
+                fetchEmojis();
+            }, []) // 빈 배열: 처음 렌더링될 때 딱 한 번 실행
+
+            const handleSearch = (emojiName) => {
+                if (!emojis || emojiName.trim() === '') {
+                    setImgUrl(null);
+                    return
+                }
+                // emojis 객체에서 emojiName을 키로 가진 값을 찾는다.
+                const foundUrl = emojis[emojiName];
+                setImgUrl(foundUrl || null);
+            };
+
+            return (
+                <>
+                    <h1>이모지 검색기</h1>
+                    <SearchBox onSearch={handleSearch} />
+                    <br />
+                    <ImageBox imgUrl={imgUrl} /> {/* 여기에 검색해온 img를 출력할 것이다 */}
+                </>
+            )
+        };
+
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+    </script>
+</body>
+</html>

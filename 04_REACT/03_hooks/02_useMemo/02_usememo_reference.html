@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+    /*
+    ------------------------------------------------------------
+    [교육 개요 및 배우는 이유]
+    이 예제는 React의 useMemo Hook을 활용하여 객체의 동일성(참조값)을 유지하는 방법을 설명합니다.
+    - useMemo는 객체나 배열을 기억(캐싱)해서, 불필요한 재생성으로 인한 렌더링/효과 실행을 막아줍니다.
+    - 의존성 배열([isKorea])을 통해 언제 객체를 새로 만들지 제어할 수 있습니다.
+    - useEffect를 통해 객체가 변경될 때만 특정 작업을 실행하는 패턴을 실습합니다.
+    - useState를 활용한 상태 관리, input 이벤트 처리 등 React의 기본적인 컴포넌트 구조도 함께 익힙니다.
+
+    [이것을 배우는 이유]
+    - 실제 웹 서비스에서는 객체나 배열이 자주 생성되면, 불필요한 렌더링이나 useEffect 실행이 반복되어 성능 저하가 발생할 수 있습니다.
+    - useMemo를 사용하면 꼭 필요한 경우에만 객체를 새로 만들고, 그렇지 않으면 이전 객체를 재사용하여 효율적으로 관리할 수 있습니다.
+    - React의 성능 최적화와 참조값 관리의 중요성을 이해하고, 실무에 적용할 수 있는 기초를 다질 수 있습니다.
+    ------------------------------------------------------------
+    */
+
+        const {useState, useMemo, useEffect} = React;
+    // useState: 컴포넌트의 상태를 관리하는 Hook입니다.
+    // useMemo: 복잡한 값이나 객체/배열의 동일성을 유지할 때 사용하는 Hook입니다.
+    // useEffect: 특정 값이 변경될 때마다 원하는 작업을 실행하는 Hook입니다.
+
+        function App() {
+            // isKorea: 현재 국가가 '한국'인지 여부를 저장하는 상태
+            // setIsKorea: isKorea 값을 변경하는 함수
+            const [isKorea, setIsKorea] = useState(true);
+            const [number, setNumber] = useState(0);
+            // number: input에 입력된 숫자 상태
+            // setNumber: number 값을 변경하는 함수
+
+            console.log('렌더링...');
+            // 컴포넌트가 렌더링될 때마다 콘솔에 메시지를 출력합니다.
+
+            const location = useMemo(() => {
+            // useMemo를 사용해서 location 객체의 동일성을 유지합니다.
+            // isKorea 값이 바뀔 때만 새로운 객체를 생성합니다.
+            // 그렇지 않으면 이전 객체를 재사용합니다.
+                return {
+                country: isKorea ? '한국' : '외국'
+                }
+            }, [isKorea]); // isKorea 값이 바뀔 때만 이 객체를 새로 만들어줘~!!
+
+            useEffect(() => {console.log('useEffect 실행!! location이 변경되었습니다')}, [location]);
+            // location 객체가 변경될 때만 useEffect가 실행됩니다.
+            // 객체의 참조값이 바뀌지 않으면, 불필요한 실행을 막을 수 있습니다.
+
+            return (
+                <>
+                    {/* 현재 위치(국가)를 보여주는 UI */}
+                    <h2>지금 당신이 있는 위치는?</h2>
+                    <p>국가: {location.country}</p>
+                    {/* 버튼 클릭 시 국가를 토글합니다. */}
+                    <button onClick={() => setIsKorea(!isKorea)}>국가 토글하기</button>
+                    <hr />
+                    {/* 숫자 입력을 위한 input. 입력값은 number 상태에 저장됩니다. */}
+                    <input 
+                        type="number"
+                        value={number}
+                        onChange={(e) => setNumber(e.target.value)} 
+                    />
+                </>
+            )
+        }
+
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    // App 컴포넌트를 root 요소에 렌더링합니다.
+
+    </script>
+</body>
+</html>

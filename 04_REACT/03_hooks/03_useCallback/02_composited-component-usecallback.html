@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02_composited-component-usecallback</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+    /*
+    ------------------------------------------------------------
+    [교육 개요 및 배우는 이유]
+    이 예제는 React의 useCallback Hook을 활용하여 부모 컴포넌트에서 자식 컴포넌트로 함수를 props로 전달할 때, 불필요한 리렌더링을 막는 방법을 설명합니다.
+    - useCallback은 함수의 참조값을 유지하여, 부모가 자식에게 함수를 줄 때마다 새로 만들어지는 문제를 해결합니다.
+    - 의존성 배열([size])을 통해 언제 함수를 새로 만들지 제어할 수 있습니다.
+    - useEffect를 통해 부모가 준 함수가 변경될 때만 자식에서 특정 작업을 실행하는 패턴을 실습합니다.
+    - useState를 활용한 상태 관리, input 이벤트 처리 등 React의 기본적인 컴포넌트 구조도 함께 익힙니다.
+    ------------------------------------------------------------
+    */
+        
+        const { useState, useEffect, useCallback} = React;
+    // useState: 컴포넌트의 상태를 관리하는 Hook입니다.
+    // useEffect: 특정 값이 변경될 때마다 원하는 작업을 실행하는 Hook입니다.
+    // useCallback: 함수를 기억(캐싱)해서, 불필요한 함수 재생성을 막는 Hook입니다.
+
+        function Square({ getSquareStyle }) {
+            // Square: 부모로부터 getSquareStyle 함수를 props로 받아 스타일을 적용하는 자식 컴포넌트입니다.
+            console.log('자식 컴포넌트가 렌더링 되었습니다.');
+
+            // 부모가 준 스타일을 저장할 state
+            const [style, setStyle] = useState({});
+            // style: 사각형의 스타일을 저장하는 상태
+            // setStyle: style 값을 변경하는 함수
+
+            // 부모가 준 getSquareStyle 함수가 변경 될 때만, 스타일을 새로 만들어서 적용
+            useEffect(() => {
+            // 부모가 준 getSquareStyle 함수가 변경될 때만 실행됩니다.
+            // getSquareStyle 함수가 바뀌지 않으면 이전 스타일을 그대로 사용합니다.
+                console.log('자식의 useEffect 실행~!')
+                setStyle(getSquareStyle());
+            }, [getSquareStyle])
+
+            // state에 저장된 스타일로 div를 그린다
+            return <div style={style}></div>
+            // style 상태에 저장된 스타일로 사각형(div)을 그립니다.
+        }
+
+        function App() {
+            // size: 사각형의 크기를 저장하는 상태
+            // setSize: size 값을 변경하는 함수
+            // isDark: 배경 테마(어두움/밝음)를 저장하는 상태
+            // setIsDark: isDark 값을 변경하는 함수
+            const [size, setSize] = useState(200);
+            const [isDark, setIsDark] = useState(false);
+
+            const getSquareStyle = useCallback(() => {
+            // useCallback을 사용해서 getSquareStyle 함수의 참조값을 유지합니다.
+            // size 값이 바뀔 때만 새로운 함수를 생성합니다.
+            // 그렇지 않으면 이전 함수를 재사용합니다.
+                return{
+                    backgroundColor: 'orangered',
+                    width: `${size}px`,
+                    height: `${size}px`
+                };
+            }, [size]);
+
+            return (
+                // isDark state에 따라 배경색이 바뀌는 div
+                <div style={{ backgroundColor: isDark ? 'black' : 'white'}}>
+                    {/* 크기 조절을 위한 range input. 값이 바뀌면 size 상태가 변경됩니다. */}
+                    <input 
+                        type="range"
+                        min="100"
+                        max="300"
+                        onChange={(e) => setSize(parseInt(e.target.value))}
+                    />
+                    {/* 테마 변경 버튼: 클릭 시 isDark 상태가 변경됩니다. */}
+                    <button onClick={() => setIsDark(!isDark)}>테마 변경</button>
+                    {/* getSquareStyle 함수를 props로 전달하여 자식(Square)에서 스타일을 적용합니다. */}
+                    <Square getSquareStyle={getSquareStyle} />
+                </div>
+            );
+        }
+
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    // App 컴포넌트를 root 요소에 렌더링합니다.
+
+    </script>
+</body>
+</html>

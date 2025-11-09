@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01_component-and-jsx</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        /* # 컴포넌트란?
+        - UI를 재사용 가능한 '부품'으로 나눈 것이다(예: 버튼, 헤더 등)
+        - 리액트 엘리먼트를 반환하는 '자바스크립트 함수'이다.
+        - 반드시 '대문자'로 시작해야 한다.
+        */
+
+        /* ## 1. 클래스형 컴포넌트
+        컴포넌트 앞 글자를 반드시 대문자로 시작 */
+        class TitleClass extends React.Component { // 컴포넌트 만들 때 React.Component로 부터 extend를 받아야 함.
+            render() {  // render로 구현이 필요
+                return React.createElement(
+                    "h1",
+                    {className: 'classComponent'},
+                    "클래스형 컴포턴트입니다."
+                )
+            }
+        }
+
+        /* ## 2. 함수형 컴포넌트 */
+        // 함수형 컴포넌트도 앞글자를 대문자로 시작
+        // #### JSX를 사용하지 않은 컴포넌트
+        function OldWayComponent() {
+            return React.createElement(
+                "div",
+                null,
+                React.createElement("h1", {className: 'greeting'}, "createElement 방식"),
+                React.createElement("p", null, "코드가 길고 복잡하다.")
+            );
+        }
+        // #### JSX 방식의 컴포넌트
+        // 단 이 방식은 공식 문법이 아니기에 위의 방식으로 변환해주는 외부 툴(babel cdn)을 하나 더 추가해줘야 한다.
+        // 추가 후 script 여는 태그에 type="text/babel" 을 추가
+        function NewWayComponent() {
+            return (
+                <div>
+                    <h1 className='greeting'>JSX방식</h1>
+                    <p>마치 HTML처럼 보여서 훨씬 직관적이다!</p>    
+                </div>
+            );
+        }
+        // ReactDOM.createRoot(document.getElementById('root')).render(<NewWayComponent/>)
+
+        // ## 3. 컴포넌트 합성
+        // 최상위에는 하나만 와야되기 때문에 여러 요소를 하나로 묶어주기 위한 빈 태그(Fragment)를 사용
+        function App() {
+            return(
+                <>
+                    <OldWayComponent/>
+                    <hr />
+                    <NewWayComponent/>
+                </>
+            )
+        }
+        ReactDOM.createRoot(document.getElementById('root')).render(<App/>)
+    </script>
+</body>
+</html>

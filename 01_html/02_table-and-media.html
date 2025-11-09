@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>표와 미디어</title>
+    <style>
+        table, th, td {
+            border:1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {padding: 10px;}
+    </style>
+</head>
+<body>
+    
+    <h1>표(Table)로 데이터 정리하기</h1>
+    <table>
+        <!-- caption : 표의 제목이나 설명을 붙이는 태그 -->
+         <caption>웹 개발 스터디 시간표</caption>
+        <!-- thead : 표의 헤더 부분을 그룹화 -->
+        <thead>
+            <!-- tr : 표의 한 '행'을 의미 -->
+        <tr>
+            <!-- th: 표의 제목 셀. 자동으로 굵게 표시됨. -->
+            <th>시간</th>
+            <th>월요일</th>
+            <th>수요일</th>
+            <th>금요일</th>
+        </tr>
+        </thead>
+        <!-- tbody: 표의 본문(내용) 부분을 그룹화 -->
+         <tbody>
+            <tr>
+                <th>1교시 (9:00 ~ 10:00)</th>
+                <td>HTML 기초</td>
+                <!-- 속성은 여는 태그 안쪽에 넣을 수 있다 -->
+                <!-- rowspan="2" : 이 칸은 아래 칸과 합쳐서 '2줄'을 차지합니다. -->
+                <td rowspan="2">javascript 기초</td>
+                <td>HTML 심화</td>
+            </tr>
+            <tr>
+                <th>2교시 (10:00 ~ 11:00)</th>
+                <td>CSS 기초</td>
+                <!-- 병합된 2교시의 javascript는 삭제.놔두면 옆으로 칸이 밀린다. -->
+                <!-- colspan="2" : 이 칸은 오른쪽과 합쳐서 '2칸'을 차지합니다. -->
+                <!-- 위는 4칸,여기는 3칸이기에 투명한 칸을 하나 만들어서 똑같이 4칸으로 만들어줍시다. -->
+                <td colspan="2">미니 프로젝트</td>
+            </tr>
+         </tbody>
+    </table>
+
+    <hr>
+
+    <h1>미디어로 페이지 꾸미기</h1>
+
+    <h2>이미지 넣기</h2>
+    <!-- img: 이미지를 삽입하는 태그 -->
+    <!-- src: source의 약자 --->
+    <!-- alt: alternative text(대체텍스트) img가 특정 이유로 나오지 않을 때 대체하는 텍스트. 시각장애인들에게는 이 텍스트로 대체하여 나감. -->
+    <!-- figure은 도형. figure태그 안의 것은 세트로 들여쓰기가 됨. -->
+    <figure> 
+    <img 
+          src="sample/image/river1.PNG"
+          alt="잔잔한 강"
+          width="300" height="200">
+          <figcaption>이것은 figure 태그를 이용한 이미지 설명입니다.</figcaption>
+    </figure>
+
+    <h2>오디오 넣기</h2>
+    <!-- audio: 오디오 파일을 삽입하는 태그 -->
+    <!-- conrtols: 플레이어가 나타나게 하는 속성 -->
+    <audio src="sample/audio/major.mp3" controls></audio>
+
+    <h2>비디오 넣기</h2>
+    <!-- video: 비디오 파일을 삽입하는 태그 -->
+     <video src="sample/video/video1.mp4" controls width="400"></video>
+</body>
+</html>

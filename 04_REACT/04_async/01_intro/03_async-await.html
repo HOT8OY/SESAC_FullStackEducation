@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03_async-await</title>
+</head>
+<body>
+    <script>
+
+        function increase(number) {
+            const promise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const result = number + 10;
+                    if (result > 40) {
+                        const e = new Error('숫자가 너무 큽니다')
+                        return reject(e);   // reject 함수를 호출하며 에러 전달
+                    }
+
+                    resolve(result);
+                }, 1000)
+            });
+            // 생성된 promise 객체를 반환
+            return promise;
+        }
+
+        // async가 붙어있는 함수는 항상 promise를 반환한다.
+        // await는 오직 async가 붙은 함수 안에서만 사용 가능하며...
+        async function run() {
+            console.log('작업 시작...');
+            // async에서는 try, catch를 통해 Error를 잡을 수 있다
+            // 에러가 발생할 수 있는 비동기 코드는 try {...} 블록으로 감싸주었다.
+            try{
+                // await: Promise가 끝날 때까지 기다렸다가, resolve된 결과값을 result 변수에 할당!
+                let result = await increase(0);
+                console.log(result);
+
+                result = await increase(result);
+                console.log(result);
+
+                result = await increase(result);
+                console.log(result);
+
+                result = await increase(result);
+                console.log(result);
+
+                result = await increase(result);
+                console.log(result);
+            } catch(e) {
+                console.error(e);
+            }
+            console.log('모든 작업이 끝났습니다.');
+        }
+
+        run();
+
+
+
+    </script>
+</body>
+</html>

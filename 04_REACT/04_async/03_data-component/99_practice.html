@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>99_practice</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <style>
+         .card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 8px;
+            display: inline-block;
+            width: 200px;
+        }
+        .card img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        const { useState, useEffect } = React;
+
+        function CharacterList () {
+            // 1. 필요한 상태(캐릭터 목록, 로딩, 에러)를 정의합니다.(잘 뜨는거, 에러 뜨는거 두 장 캡쳐해서 Notion에 올릴 것)
+            const [ characters, setCharacters ] = useState([]);
+            const [ loading, setLoading ] = useState(true);
+            const [ error, setError ] = useState(null);
+            // 2. 전체 캐릭터 목록 API를 호출합니다('https://rickandmortyapi.com/api/character')
+            useEffect(() => {
+                const fetchData = async () => {
+                    // try...catch 블럭 사용
+                }
+            }, [])
+
+
+            return(
+                // 캐릭터 카드 목록 렌더링
+                <div className="container">
+                </div>
+            );
+        }
+
+        // props로 받은 데이터를 순수하게 렌더링하는 역할만 한다.
+        function CharacterCard() {
+            return(
+                <div className="card">
+                    
+                </div>
+            )
+        }
+
+        function App() {
+            return (
+                <div>
+                    <h1 style={{textAlign: 'center'}}>릭 앤 모티 캐릭터 도감(김선준)</h1>
+                    <CharacterList />
+                </div>
+            )
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+    </script>
+</body>
+</html>

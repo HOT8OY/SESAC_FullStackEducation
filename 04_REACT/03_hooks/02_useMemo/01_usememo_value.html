@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01_useMemo_value</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+    /*
+    ------------------------------------------------------------
+    [교육 개요 및 배우는 이유]
+    이 예제는 React의 useMemo Hook을 활용하여 '복잡한 계산'을 효율적으로 처리하는 방법을 설명합니다.
+    - useMemo는 시간이 오래 걸리는 연산(예: 반복문, 무거운 함수 등)을 캐싱하여, 불필요한 재계산을 막아줍니다.
+    - 입력값이 바뀔 때만 계산을 다시 수행하고, 그렇지 않으면 이전 결과를 재사용합니다.
+    - 실습을 통해 useMemo의 동작 원리와 성능 최적화 효과를 직접 확인할 수 있습니다.
+    - 또한 useState를 활용한 상태 관리, input 이벤트 처리, 함수 분리 등 React의 기본적인 컴포넌트 구조도 함께 익힙니다.
+
+    [이것을 배우는 이유]
+    - 실제 웹 서비스에서는 사용자 입력, 데이터 변경 등으로 인해 컴포넌트가 자주 렌더링됩니다.
+    - 복잡한 계산이 매번 반복되면 성능 저하와 느린 반응이 발생할 수 있습니다.
+    - useMemo를 사용하면 꼭 필요한 경우에만 계산을 수행하여, 앱의 속도와 사용자 경험을 크게 향상시킬 수 있습니다.
+    - React의 성능 최적화와 효율적인 상태 관리의 중요성을 이해하고, 실무에 적용할 수 있는 기초를 다질 수 있습니다.
+    ------------------------------------------------------------
+    */
+
+        // # useMemo: 복잡하거나 시간이 오래 걸리는 계산 결과를 기억(캐싱)해서, 불필요한 재계산을 막아주는 React Hook입니다.
+        // # useState: 컴포넌트의 상태를 관리하는 Hook입니다.
+        // # useEffect: 컴포넌트의 생명주기(렌더링, 마운트, 언마운트 등)에 따라 특정 작업을 실행하는 Hook입니다.
+
+        const { useState, useMemo, useEffect } = React;
+
+        // hardCalculator: 오래 걸리는 계산을 흉내내는 함수입니다.
+        // 실제로는 for문을 매우 많이 반복해서 시간이 걸리게 만듭니다.
+        // num에 10000을 더한 값을 반환합니다.
+        const hardCalculator = (num) => {
+            console.log('어려운 계산 시작!');   // 오래 걸리는 작업임을 콘솔에 표시
+            for (let i = 0; i < 2999999999; i++) {} // 시간이 오래 걸리는 부분
+            return num + 10000;
+        }
+
+        // easyCalculator: 금방 끝나는 간단한 계산 함수입니다.
+        // num에 1을 더한 값을 반환합니다.
+        const easyCalculator = (num) => {
+            console.log('쉬운계산 시작!');  // 금방 끝나는 작업임을 콘솔에 표시
+            return num + 1
+        }
+
+        function App() {
+            // hardNumber: 어려운 계산기에 입력되는 숫자 상태
+            // setHardNumber: hardNumber 값을 변경하는 함수
+            const [hardNumber, setHardNumber] = useState(1);
+            // easyNumber: 쉬운 계산기에 입력되는 숫자 상태
+            // setEasyNumber: easyNumber 값을 변경하는 함수
+            const [easyNumber, setEasyNumber] = useState(1);
+
+            // useMemo를 사용해서 hardCalculator의 결과를 기억합니다.
+            // hardNumber가 바뀔 때만 hardCalculator를 다시 실행합니다.
+            // hardNumber가 바뀌지 않으면, 이전에 계산한 값을 재사용합니다.
+            const hardSum = useMemo(() => {
+                return hardCalculator(hardNumber);
+            }, [hardNumber]); // [hardNumber]가 변경될 때만 재계산
+
+            // 쉬운 계산은 바로 실행해도 성능에 문제가 없습니다.
+            const easySum = easyCalculator(easyNumber);
+
+            // 화면에 두 개의 계산기 UI를 보여줍니다.
+            return (
+                <>
+                    {/* 어려운 계산기: 입력값에 10000을 더하는 계산 */}
+                    <h3>어려운 계산기</h3>
+                    <input 
+                        type="number"
+                        value={hardNumber}
+                        // 입력값이 바뀌면 hardNumber 상태를 변경합니다.
+                        onChange={ (e) => setHardNumber(parseInt(e.target.value))}
+                    />
+                    <span> + 10000 = {hardSum}</span>
+                    {/* 쉬운 계산기: 입력값에 1을 더하는 계산 */}
+                    <h3>쉬운 계산기</h3>
+                    <input 
+                        type="number"
+                        value={easyNumber}
+                        // 입력값이 바뀌면 easyNumber 상태를 변경합니다.
+                        onChange={ (e) => setEasyNumber(parseInt(e.target.value))}
+                    />
+                    <span> + 1 = {easySum}</span>
+                </>
+            )
+        }
+
+        // App 컴포넌트를 root 요소에 렌더링합니다.
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+    </script>
+</body>
+</html>

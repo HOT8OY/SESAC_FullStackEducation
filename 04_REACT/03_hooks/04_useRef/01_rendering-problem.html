@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+    /*
+    ------------------------------------------------------------
+    [교육 개요 및 배우는 이유]
+    이 예제는 React의 useRef Hook을 활용하여 값의 변화가 컴포넌트의 리렌더링에 미치는 영향을 비교·이해하는 방법을 설명합니다.
+    - useState는 값이 바뀌면 컴포넌트가 리렌더링됩니다.
+    - 일반 지역 변수는 리렌더링될 때마다 초기화되어 값이 유지되지 않습니다.
+    - useRef는 값이 바뀌어도 리렌더링되지 않고, 리렌더링되어도 값이 유지됩니다.
+    - 실습을 통해 각각의 차이점과 적절한 활용법을 직접 확인할 수 있습니다.
+
+    [이것을 배우는 이유]
+    - 실제 웹 서비스에서는 렌더링과 무관하게 값을 저장하거나, DOM 요소에 직접 접근해야 하는 경우가 많습니다.
+    - useRef를 사용하면 불필요한 리렌더링을 막고, 값이나 DOM을 안전하게 관리할 수 있습니다.
+    - React의 상태 관리와 렌더링 원리를 이해하고, 실무에서 발생하는 다양한 문제를 해결할 수 있는 기초를 다질 수 있습니다.
+    ------------------------------------------------------------
+    */
+
+        const { useState, useEffect, useRef } = React;
+    // useState: 값이 바뀌면 컴포넌트를 리렌더링하는 상태 관리 Hook입니다.
+    // useRef: 값이 바뀌어도 리렌더링되지 않고, 값이 유지되는 참조 관리 Hook입니다.
+    // useEffect: 특정 값이 변경될 때마다 원하는 작업을 실행하는 Hook입니다.
+
+        function Counter() {
+            // Counter: useState, 지역 변수, useRef의 동작 차이를 실습하는 컴포넌트입니다.
+
+            console.log("Counter 렌더링 됨...");
+
+            // ## 1. 값이 바뀌면 컴포넌트를 '리렌더링' 시킨다.
+            const [count, setCount] = useState(0);
+            // count: State로 관리되는 값. 값이 바뀌면 컴포넌트가 리렌더링됩니다.
+            // setCount: count 값을 변경하는 함수
+
+            // ## 2. 일반 지역 변수
+            // 리렌더링 될 때마다 '0'으로 초기화 된다.
+            let variable = 0;
+            // variable: 일반 지역 변수. 리렌더링될 때마다 초기화되어 값이 유지되지 않습니다.
+
+            // ## 3. useRef
+            // .current 프로퍼티에 할당한 값을 저장하고, 값이 바뀌어도 '리렌더링' 되지 않는다.
+            // 그리고 리렌더링 되어도 값이 초기화 되지 않는다.
+            // 다른 이유로 리렌더링이 된다면 저장된 값이 렌더링 된다.
+            const countRef = useRef(0)
+            // countRef: useRef로 관리되는 값. 값이 바뀌어도 리렌더링되지 않고, 리렌더링되어도 값이 유지됩니다.
+
+            const increaseCount = () => {
+            // State 증가 함수: count 값을 1 증가시키고, 컴포넌트를 리렌더링합니다.
+                setCount(count + 1);
+            };
+
+            const increaseVariable = () => {
+            // 지역 변수 증가 함수: variable 값을 1 증가시키지만, 리렌더링 시 값이 초기화됩니다.
+                variable += 1;
+                console.log(`지역 변수(variable)값: ${variable}`);
+            };
+
+            const increaseCountRef = () => {
+            // Ref 증가 함수: countRef.current 값을 1 증가시키지만, 컴포넌트는 리렌더링되지 않습니다.
+                countRef.current += 1;
+                console.log('Ref(countRef)값 : ', countRef.current);
+            };
+
+            return (
+                <>
+                    {/* State, Variable, Ref의 현재 값을 화면에 표시합니다. */}
+                    <h1>State: {count}</h1>
+                    <h2>Variable: {variable}</h2>
+                    <h3>Ref: {countRef.current}</h3>
+                    {/* 각각의 값을 증가시키는 버튼 */}
+                    <button onClick={increaseCount}>State 증가</button>
+                    <button onClick={increaseVariable}>Variable 증가</button>
+                    <button onClick={increaseCountRef}>Ref 증가</button>
+                </>
+            )
+
+        }
+
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<Counter />);
+    // Counter 컴포넌트를 root 요소에 렌더링합니다.
+
+    </script>
+</body>
+</html>

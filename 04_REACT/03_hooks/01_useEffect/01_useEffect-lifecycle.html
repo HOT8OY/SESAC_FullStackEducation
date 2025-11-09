@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+    /*
+    ------------------------------------------------------------
+    [교육 개요 및 배우는 이유]
+    이 예제는 React의 useEffect Hook을 활용하여 컴포넌트의 생명주기(마운트, 업데이트, 언마운트)에 따라 특정 작업을 실행하는 방법을 설명합니다.
+    - useEffect는 렌더링 이후, 특정 상태가 변경될 때, 컴포넌트가 사라질 때 등 다양한 시점에 원하는 코드를 실행할 수 있게 해줍니다.
+    - 의존성 배열을 통해 실행 시점을 세밀하게 제어할 수 있습니다.
+    - 실습을 통해 useEffect의 동작 원리와 활용법을 직접 확인할 수 있습니다.
+    - 또한 useState를 활용한 상태 관리, 이벤트 처리 등 React의 기본적인 컴포넌트 구조도 함께 익힙니다.
+
+    [이것을 배우는 이유]
+    - 실제 웹 서비스에서는 데이터 로딩, 구독, 타이머, 정리(cleanup) 등 다양한 부수 효과(side effect)가 필요합니다.
+    - useEffect를 사용하면 이러한 작업을 컴포넌트의 생명주기에 맞게 안전하고 효율적으로 처리할 수 있습니다.
+    - React의 동작 원리와 성능 최적화, 실무에서 자주 쓰이는 패턴을 이해하고, 실전 개발에 적용할 수 있는 기초를 다질 수 있습니다.
+    ------------------------------------------------------------
+    */
+
+    // React의 useState와 useEffect 훅을 불러옵니다.
+    // useState: 컴포넌트의 상태를 관리합니다.
+    // useEffect: 컴포넌트의 생명주기(렌더링, 마운트, 언마운트 등)에 따라 특정 작업을 실행합니다.
+    const { useState, useEffect } = React;
+
+        function Counter() {
+            // count: 클릭 횟수를 저장하는 상태 변수
+            // setCount: count 값을 변경하는 함수
+            const [count, setCount] = useState(0);
+            // otherState: 추가 예시용 상태 변수
+            // setOtherState: otherState 값을 변경하는 함수
+            const [otherState, setOtherState] = useState(0);
+
+            // ## 1. 의존성 배열 생략 : 매 렌더링마다 실행(잘 쓰이지 않음)
+            useEffect(() => {
+                // [1] 의존성 배열 생략: 모든 렌더링마다 실행됩니다.
+                // 거의 사용하지 않으며, 성능에 영향을 줄 수 있습니다.
+                // 여기서는 document.title을 클릭 횟수에 따라 변경합니다.
+                console.log('렌더링될 때마다 실행')
+                document.title = `너는 ${count}번 클릭했어!!`;
+            });
+
+            // ## 2. 빈 의존성 배열 [] : 첫 렌더링(Mount) 시에만 실행
+            // 주로 초기 데이터 로딩(API 호출) 등에 사용된다.
+            useEffect(() => {
+                // [2] 빈 배열([])을 전달: 컴포넌트가 처음 화면에 나타날 때(마운트)만 실행됩니다.
+                // 주로 초기 데이터 로딩(API 호출) 등에 사용합니다.
+                console.log('컴포넌트가 처음 화면에 나타남(Mount)');
+            }, []);
+            
+            // ## 3. 의존성 배열에 특정 값 지정 [count] : 해당 값이 변경될 때만 실행
+            // 가장 일반적인 사용법. 불필요한 재실행을 막아 성능을 최적화한다.
+            useEffect(() => {
+                // [3] 배열에 특정 값([count])을 전달: 해당 값이 변경될 때만 실행됩니다.
+                // 불필요한 실행을 막아 성능을 최적화합니다.
+                console.log(`count값이 ${count}로 변경되어 useEffect가 실행 됩니다.`)
+            }, [count]);
+
+            console.log('Counter 컴포넌트가 렌더링 되었습니다.');
+            // 이 부분은 컴포넌트가 렌더링될 때마다 실행됩니다.
+
+            return (
+                <>
+                    {/* 카운터 UI: 클릭 횟수와 버튼 */}
+                    <h2>단순 카운터</h2>
+                    <p>{ count }번 클릭했습니다.</p>
+                    {/* 클릭 시 count가 1 증가합니다. */}
+                    <button onClick={ () => setCount(count + 1)}>클릭</button>
+                    {/* 추가 상태 예시 */}
+                    <p>Other Counter: { otherState }</p>
+                    {/* 클릭 시 otherState가 1 증가합니다. */}
+                    <button onClick={ () => setOtherState(otherState + 1)}>클릭</button>
+                </>
+            )
+        }
+
+        function  Timer() {
+            
+            // Timer 컴포넌트가 처음 나타날 때(Mount) 타이머를 시작합니다.
+            useEffect(() => {
+                console.log('타이머가 시작되었습니다.(Mount)');
+
+                // 1초마다 콘솔에 메시지를 출력하는 타이머를 만듭니다.
+                const timerId = setInterval(() => {
+                    console.log('...1초 경과...');
+                }, 1000);
+
+                // [정리(cleanup) 함수]
+                // 컴포넌트가 화면에서 사라질 때(Unmount) 타이머를 제거합니다.
+                return () => {
+                    console.log('타이머를 정리합니다(Unmount)');
+                    // clearInterval 함수는 setInterval로 만든 타이머를 멈추는 역할을 합니다.
+                    // () 안에는 setInterval이 반환한 타이머의 ID(timerId)를 넣어야 합니다.
+                    // 예시: clearInterval(timerId)
+                    clearInterval(timerId); // timerId는 setInterval이 반환한 값입니다.
+                }
+            }, []);
+
+            // 화면에 타이머 동작 중임을 표시합니다.
+            return (
+                <h3>타이머가 동작 중입니다. (콘솔을 확인하세요~)</h3>
+            );
+        }
+
+        function App() {
+            // showTimer: Timer 컴포넌트의 표시 여부를 저장하는 상태
+            // setShowTimer: showTimer 값을 변경하는 함수
+            const [showTimer, setShowTimer] = useState(true);
+
+            return(
+                <>
+                    {/* Counter 컴포넌트: 카운터 기능 */}
+                    <Counter />
+                    <hr />
+                    {/* 버튼 클릭 시 Timer 컴포넌트의 표시/숨김을 토글합니다. */}
+                    <button onClick={ () => setShowTimer(!showTimer) }>
+                        타이머 보이기/숨기기
+                    </button>
+                    {/* showTimer가 true일 때만 Timer 컴포넌트가 화면에 나타납니다. */}
+                    {showTimer && <Timer />}
+                </>
+            )
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+
+    // App 컴포넌트를 root 요소에 렌더링합니다.
+    // 위의 코드 한 줄만 있으면 충분합니다. 중복된 코드는 제거합니다.
+    </script>
+</body>
+</html>

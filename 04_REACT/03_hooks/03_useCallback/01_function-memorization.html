@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+    /*
+    ------------------------------------------------------------
+    [교육 개요 및 배우는 이유]
+    이 예제는 React의 useCallback Hook을 활용하여 함수를 기억(캐싱)하는 방법을 설명합니다.
+    - useCallback은 함수의 참조값을 유지하여, 불필요한 함수 재생성 및 자식 컴포넌트의 리렌더링을 막아줍니다.
+    - 의존성 배열([number])을 통해 언제 함수를 새로 만들지 제어할 수 있습니다.
+    - useEffect를 통해 함수가 변경될 때만 특정 작업을 실행하는 패턴을 실습합니다.
+    - useState를 활용한 상태 관리, input 이벤트 처리 등 React의 기본적인 컴포넌트 구조도 함께 익힙니다.
+
+    [이것을 배우는 이유]
+    - 실제 웹 서비스에서는 부모 컴포넌트가 자식 컴포넌트에 함수를 props로 전달하는 경우가 많습니다.
+    - 함수가 매번 새로 만들어지면, 자식 컴포넌트가 불필요하게 리렌더링되어 성능 저하가 발생할 수 있습니다.
+    - useCallback을 사용하면 꼭 필요한 경우에만 함수를 새로 만들고, 그렇지 않으면 이전 함수를 재사용하여 효율적으로 관리할 수 있습니다.
+    - React의 성능 최적화와 함수 참조 관리의 중요성을 이해하고, 실무에 적용할 수 있는 기초를 다질 수 있습니다.
+    ------------------------------------------------------------
+    */
+
+        // #### useCallback은 함수를 기억한다.
+        // 특히 자식 컴포넌트에 함수를 props로 전달할 때, 불필요한 리렌더딩을 막기 위해 useCallback을 사용하는것이 거의 필수이다.
+
+        const { useState, useEffect, useCallback } = React;
+    // useState: 컴포넌트의 상태를 관리하는 Hook입니다.
+    // useEffect: 특정 값이 변경될 때마다 원하는 작업을 실행하는 Hook입니다.
+    // useCallback: 함수를 기억(캐싱)해서, 불필요한 함수 재생성을 막는 Hook입니다.
+    //
+    // [useCallback 사용 방법]
+    // const memoizedFunc = useCallback(() => {
+    //     // 함수 내용
+    // }, [의존성_값1, 의존성_값2]);
+    // - 첫 번째 인자: 실제로 실행할 함수
+    // - 두 번째 인자(배열): 이 값이 바뀔 때만 함수를 새로 만듭니다.
+    // - 의존성 배열에 함수 안에서 사용하는 state나 props를 반드시 넣어야 합니다.
+
+        function App() {
+            // number: input에 입력된 숫자 상태
+            // setNumber: number 값을 변경하는 함수
+            // toggle: 토글 버튼의 상태
+            // setToggle: toggle 값을 변경하는 함수
+            const [number, setNumber] = useState(0);
+            const [toggle, setToggle] = useState(false);
+
+            // 렌더링 될 때 마다 새로운 주소를 참조하고 있는 함수를 생성한다.(문제!!)
+            // const printNumber = () => {
+            //     console.log('현재 숫자', number);
+            // }
+
+            // #### 함수 안에서 사용하는 state나 props가 있다면 반드시 의존성 배열에 넣어줘야 한다.
+            // [useCallback 예시]
+            // printNumber 함수는 number 값이 바뀔 때만 새로 만들어집니다.
+            // 그렇지 않으면 이전 함수를 재사용합니다.
+            // useCallback을 사용해서 printNumber 함수의 참조값을 유지합니다.
+            // number 값이 바뀔 때만 새로운 함수를 생성합니다.
+            const printNumber = useCallback(() => {
+                console.log('현재 숫자', number);
+            }, [number]);   // number의 값이 바뀔 때만 이 함수를 새로 만들어줘!!
+
+
+            useEffect(() => {
+            // printNumber 함수가 변경될 때만 useEffect가 실행됩니다.
+                console.log('printNumber함수가 변경되었다.')
+            }, [printNumber]);
+
+            return (
+                <>
+                    {/* 숫자 입력을 위한 input. 입력값은 number 상태에 저장됩니다. */}
+                    <input 
+                        type="number"
+                        value={number}
+                        // 입력값이 바뀌면 number 상태를 변경합니다.
+                        onChange={(e) => setNumber(parseInt(e.target.value))}
+                    />
+                    {/* printNumber 함수를 실행하는 버튼 */}
+                    <button onClick={printNumber}>숫자 출력</button>
+                    <hr />
+                    {/* 토글 버튼: 클릭 시 toggle 상태가 변경됩니다. */}
+                    <button onClick={() => setToggle(!toggle)}>토글 버튼</button>
+                    <p>토글 상태: {String(toggle)}</p>
+                </>
+            )
+        }
+
+
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    // App 컴포넌트를 root 요소에 렌더링합니다.
+
+    </script>
+</body>
+</html>

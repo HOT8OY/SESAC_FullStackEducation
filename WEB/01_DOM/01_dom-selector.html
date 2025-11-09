@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM 요소 선택</title>
+    <style>
+        .fruit { color: blue; }
+        .red { color: red; }
+        .box { border: 1px solid #ccc; margin: 10px; padding: 10px; }
+    </style>
+</head>
+<body>
+<h1>DOM 요소 선택</h1>
+
+<hr>
+
+<h3>1. `querySelector`와 `querySelectorAll`</h3>
+<pre>
+    CSS 선택자를 그대로 사용하여 요소를 찾는, 가장 강력하고 일관성 있는 방법입니다.
+    이 두 가지만 마스터하면 사실상 모든 요소를 선택할 수 있습니다.
+    </pre>
+
+<ul>
+    <li id="apple" class="fruit red">사과</li>
+    <li class="fruit">바나나</li>
+    <li>딸기</li>
+</ul>
+
+<script>
+   // ## 1. querySelector: CSS 선택자에 맞는 '첫 번째 요소 하나'만 찾아온다.
+   // $: DOM 요소를 나타내기 위한 개발자들간의 약속.
+   // 여기에선 camelCase를 이용하여 사용. EX: font-color => fontColor
+   // id속성 사용 (#)
+   const $apple = document.querySelector('#apple');
+   $apple.style.fontWeight = 'bold'
+   // class속성 사용 (.)
+   const $firstFruit = document.querySelector('.fruit');
+    console.log($firstFruit);   // li#apple.fruit.red
+
+    // ## 2. querySelectorAll: CSS 선택자에 맞는 '모든 요소'를 NodeList로 찾아온다.
+    const $fruits = document.querySelectorAll('.fruit');
+    console.log($fruits);   // NodeList(2) [li#apple.fruit.red, li.fruit]
+
+    // NodeList는 '유사 배열 객체'이다. forEach같은 배열 메서드를 바로 사용할 수 있다.
+    $fruits.forEach(item => {
+        item.style.border = '1px solid blue';
+    });
+</script>
+
+<hr>
+
+<h3>2. 과거의 탐색기들과 숨겨진 함정</h3>
+<pre>
+    과거에는 `getElementById`, `getElementsByClassName` 등을 사용했습니다.
+    이 메서드들은 `HTMLCollection`이라는 특별한 목록을 반환하는데,
+    이 목록은 '살아있어서' 예기치 못한 문제를 일으킬 수 있습니다.
+    </pre>
+
+<div class="box">
+    <p class="text">첫 번째 문단</p>
+    <p class="text">두 번째 문단</p>
+    <p class="text">세 번째 문단</p>
+</div>
+
+<script>
+    // querySelector는 취득한 순간을 기준점으로 사용
+    const $box = document.querySelector('.box');
+
+    // getElementsByClassName에서는 선택자(.)을 사용하지 않는다. 이미 Class가 들어가 있기 때문.
+    // 문제점: HTML이 변화하면 실시간으로 변화함
+    const $texts = $box.getElementsByClassName('text');
+    console.log($texts);    // HTMLCollection(3) [p.text, p.text, p.text]
+    console.log('반복문 시작 전', $texts.length);   // 반복문 시작 전 3
+
+    // for문으로 순회하며 클래스 이름을 바꾸면
+    for(let i = 0; i < $texts.length; i++) {
+        console.log(`${i}번째 반복문 시작! 현재 $texts의 길이는?`, $texts.length);
+        // 'text' 클래스 제거
+        $texts[i].classList.remove('text') //  0~1번째 반복문 시작! 현재 $texts의 길이는? 3~2
+    }   // 반복문 0번째->index0을 사용.texts의 길이는 3->texts의 class를 1개 지워서 index가 0,1만 남음.
+        // 반복문 1번째->index1을 사용.texts의 길이는 2->texts의 class를 1개 지워서 index가 0만 남음
+        // index2를 사용해야하나 index0밖에 남지 않아서 실행 종료.
+</script>
+
+<hr>
+
+<h3>3. 결론: 가장 안전한 방법은 '배열'로 바꾸는 것!</h3>
+<pre>
+    `querySelectorAll`은 이런 문제가 없는 '고정된' `NodeList`를 반환하기 때문에 훨씬 안전합니다.
+    하지만 만약 `getElementsBy...` 같은 메서드를 꼭 써야 한다면,
+    가져온 목록을 **먼저 진짜 배열로 변환한 후 사용하는 것이 가장 안전합니다.**
+    </pre>
+
+<div class="box">
+    <p class="text2">첫 번째 문단</p>
+    <p class="text2">두 번째 문단</p>
+    <p class="text2">세 번째 문단</p>
+</div>
+
+<script>
+    const $text2 = document.getElementsByClassName('text2');
+
+    // 스프레드 문법(...)을 사용해 일반 배열로 변환한다.
+    const textArray = [...$text2]; // text2라는 class를 제거.
+    console.log(textArray);
+
+    // 배열이 되었으므로, forEach를 사용해 안전하게 모든 요소를 변경할 수 있다.
+    textArray.forEach(item => {
+        item.classList.remove('text2');
+    });
+</script>
+</body>
+</html>

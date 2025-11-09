@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Single+Day&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML 실습</title>
+      <style>
+        /* 브라우저마다 기본적으로 가진 여백 초기화 */
+        body, h1, h2, p, ul, table {margin: 0; padding: 0;}
+        body {
+            background-color: azure;
+            line-height: 1.7;
+
+        }
+        /* 페이지 전체를 감싸는 컨테이너(가운데 정령을 위해) */
+        div.container {
+            width: 90%; 
+            max-width: 800px; /* 화면이 아무리 커져도 최대 너비는 800px */
+            padding: 15px;
+            margin: 40px auto; /*위아래 40px, 좌우는 자동으로 여백을 줘서 가운데 정렬*/
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        header {
+            font-family: "Single Day";
+            text-align: center;
+            margin-bottom: 40px;
+            margin-top: 20px;
+        }
+        header > h1 {font-family: Helvetica;font-weight: bold;}
+        h1 {
+            font-size: 40px;
+            font-weight: 200;
+            color: turquoise;
+            margin-bottom: 10px;
+            font-family: "Single Day";
+        }
+        h2 {border-bottom: 2px solid rgba(0, 0, 0, 0.4);margin-bottom: 20px;}
+        hr {margin-bottom: 30px; color: rgba(0, 0, 0, 0.2);}
+        ul {
+            list-style-type: none; /*ul 태그의 기본 점 제거 */
+
+        }
+        .flex-container {
+            display: flex;
+            justify-content: start;
+        }
+        ul > li {
+            background-color: rgba(7, 164, 255, 0.212);
+            padding: 5px 15px;
+            border-radius: 10px;
+            margin: 5px 15px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+        table {width:90%; margin: 5%;}
+        table, th, td {
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-collapse: collapse;
+        }
+        th, td {padding: 10px; text-align: center;}
+        thead {background-color: azure;}
+        figure.picfig {
+            width: 300px;
+            margin: 0 auto;
+        }
+        figcaption {font-family: Arial, Helvetica, sans-serif; color: rgba(0, 0, 0, 0.6);text-align: center;}
+        #name, #memo {
+            width: 95%;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+        .guestbook_button {
+            text-decoration: none;
+            background-color: rgba(7, 164, 255, 0.212);
+            padding: 10px 15px;
+            border-radius: 7px;
+            border: 1px solid rgba(7, 164, 255, 0.534);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+        section {margin-bottom: 20px;}
+        .audio-wrap {text-align: center}
+      </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>김선준 (Sunjoon Kim)</h1>
+            <p>안녕하세요! 성장을 즐기는 예비 개발자 <b>김선준</b>입니다<br><i>"모든것에 최선을 다하라"</i>는 말을 좋아합니다</p>
+        </header>
+        <main>
+            <section>
+                <h2>💎 보유기술</h2>
+                <ul class="container flex-container">
+                    <li class="html5">HTML5</li>
+                    <li class="csss3">CSS3</li>
+                    <li class="javascript">JavaScript</li>
+                </ul>
+            </section>
+            <hr>
+            <section>
+                <h2>⏱ 시간표 (Schedule)</h2>
+                <table>
+                    <caption>2025년 1학기 시간표</caption>
+                    <thead>
+                        <tr><th>시간</th><th>월요일</th><th>수요일</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><th>1교시</th><td>웹 프로그래밍 기초</td><td rowspan="2">자료구조</td></tr>
+                        <tr><th>2교시</th><td>웹 프로그래밍 기초</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>🎞 좋아하는 사진</h2>
+                <figure class="picfig">
+                    <img src="sample/image/doge.webp" alt="꽃사진이다" width="300px" height="200px">
+                    <figcaption>이것은 제가 좋아하는 샘플 이미지입니다.</figcaption>
+                </figure>
+            </section>
+
+            <section>
+                <H2>🎵 좋아하는 음악</H2>
+                <div class="audio-wrap">
+                    <audio src="sample/audio/major.mp3" controls></audio>
+                </div>
+            </section>
+        <hr>
+            <section>
+                <h2>📎 관련 링크 (Links)</h2>
+                <p>저의 포트폴리오를 더 보고싶다면 <a href="https://github.com/HOT8OY/HOT8OY.git" target="_blank">제 깃허브</a>를 방문해주세요.</p>
+            </section>
+            <section>
+                <h2>📃 방명록 (Guestbook)</h2>
+                <form action="#" method="post">
+                    <fieldset>
+                        <legend id="guestbook">방명록 남기기</legend>
+                        <div>
+                            <label for="name">이름</label>
+                            <input type="text" name="name" id="name">
+                        </div>
+                        <div>
+                            <label for="memo">내용</label>
+                            <textarea name="memo" id="memo" rows="3"></textarea>
+                        </div>
+                        <a href="#" class="guestbook_button">남기기</a>
+                    </fieldset>
+                </form>
+            </section>
+            <hr>
+            <section>
+                <table>
+                    <tr><th colspan="3"><h3>저에게 기부를 원하시면 이 곳으로 입금 부탁드립니다.</h3></th></tr>
+                <tr><td colspan="3"><figure>xx은행 110-000-110000</figure></td></tr>
+                <tr><td>
+                        <input type="radio" id="donation-yes" name="donation" value="yes" checked> <label for="donation-yes">🍗 5 만원 기부</label>
+                </td><td>
+                        <input type="radio" id="donation-yes" name="donation" value="yes"> <label for="donation-yes">🍻 10 만원 기부</label>
+                </td><td>
+                        <input type="radio" id="donation-yes" name="donation" value="yes"> <label for="donation-yes">🍽 50 만원 기부</label>
+                </td></tr>
+                <tr><td>
+                        <input type="radio" id="donation-yes" name="donation" value="yes" checked> <label for="donation-yes">✨ 100 만원 기부</label>
+                </td><td>
+                        <input type="radio" id="donation-yes" name="donation" value="yes"> <label for="donation-yes">💎 1000 만원 기부</label>
+                </td><td>
+                        <input type="radio" id="donation-yes" name="donation" value="yes"> <label for="donation-yes">👑 1 억원 기부</label>
+                </td></tr>
+            </table>
+            </section>
+        </main>
+        <hr>
+        <footer>
+            <pre>Copyright 2025. Sunjoon Kim. All rights reserved.</pre>
+        </footer>
+    </div>
+</body>
+</html>

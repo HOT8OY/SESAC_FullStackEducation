@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- 깃허브 이모지 api : 'https://api.github.com/emojis' -->
+
+    <script type="text/babel">
+        // 사용자의 입력을 받아 API로 부터 해당 입력에 맞는걸 찾아와서 ImageBox에 출력하는 걸 만들기.
+
+        const API_URL = 'https://api.github.com/emojis';
+        const {useState} = React;
+
+        /* 넣을 것
+        input 상자:
+        검색 버튼 */
+        function SearchBox({value, onChange, onSearch}) {
+            return (
+                <>
+                    <input
+                    type="text"
+                    palceholder="검색할 이모지를 입력하세요"
+                    value={value}
+                    onChange={e => onChange(e.target.value)}
+                    onKeyDown={e => { if (e.key === 'Enter') onSearch(); }}
+                    />
+                    <button onClick={onSearch}>검색</button>
+                </>
+            );
+        }
+
+        /* 넣을 것
+        default 상태: 이모지를 검색해주세요 (결과 없음) 텍스트를 표시
+        input에 입력 후 button을 누르면 해당 img를 api에서 획득하여 출력 */
+        function ImageBox({imgUrl, keyword}) {
+            if (!keyword) return <div>이모지를 입력해주세요</div>;
+            if (!imgUrl) return <div>이미지 검색 결과 없음</div>;
+            return <img src={imgUrl} alt={keyword} style={{width: 100}} />;
+        };
+
+        // App에서 모든 데이터와 상태(전체 이모지 목록, 검색 결과 URL)를 관리.
+        // API 통신을 책임지고, 자식들의 행동에 따라 상태를 업데이트
+        function App() {
+            const [input, setInput] = useState('');
+            const [emojiUrl, setEmojiUrl] = useState(null);
+            const [keyword, setKeyword] = useState('');
+            const [emojis, setEmojis] = useState(null);
+            const handleSearch = async () => {
+                if (!input.trim()) return;
+                setKeyword(input);
+                if (!emojis) {
+                    const response = await fetch(API_URL);
+                    const responsedData = await response.json();
+                    setEmojis(responsedData);
+                    setEmojiUrl(responsedData[input] || null);
+                    setEmojiUrl(emojis[input] || null);
+                }
+            };
+            return (
+                <>
+                    <h1>이모지 검색기</h1>
+                    <SearchBox value={input} onChange={setInput} onSearch={handleSearch}/>
+                    <br />
+                    <ImageBox imgUrl={emojiUrl} keyword={keyword}/> {/* 여기에 검색해온 img를 출력할 것이다 */}
+                </>
+            )
+        };
+
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01_createElement-and-render</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script>
+        // 우리가 원래 알던 방식
+        // const h1 = document.createElement('h1');
+        // h1.className = 'greeting';
+        // h1.textContent = 'Hello, JS'; // <h1 class='greeting'>Hello, JS</h1> 이 만들어 짐.
+        // document.getElementById('root').appendChild(h1); // h1을 <div id="root"></div>의 하위요소로 추가
+
+    console.log(React);
+
+        // React를 이용한 방식
+    const greeting = React.createElement(
+        "h1",
+        { className: "greeting" },   // class는 자바스크립트의 예약된 언어이기에 className을 이용한다.
+        "Hello, React!"
+    );
+    // console.log(greeting);
+
+    ReactDOM.createRoot(document.getElementById('root')).render(greeting);
+    </script>
+</body>
+</html>
