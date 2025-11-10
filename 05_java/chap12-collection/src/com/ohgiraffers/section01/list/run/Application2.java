@@ -22,19 +22,20 @@ public class Application2 {
         * BooktDTO 객체들은 기본 정렬 기준(책 번호 오름차순)을 가지게 되었다.
         * Collections.sort()메소드는 별도의 정렬 기준을 주지 않으면, 이 기본 정렬 기준을 사용한다. */
         Collections.sort(bookList);
-
-        System.out.println("오름차순 정렬");
+        System.out.println("======= .sort 오름차순 정렬 =======");
         for(BookDTO book : bookList) {
             System.out.println(book);
         }
 
         /* 별도의 클래스(AscendingPrice)로 구현한 Comparator 사용 (가격 오름차순) */
+        System.out.println("======= 별도의 클래스 가격 오름차순 정렬 =======");
         bookList.sort(new AscendingPrice());
         for(BookDTO book : bookList) {
             System.out.println(book);
         }
 
         /* 익명 클래스 사용 (가격 내림차순) (이름이 없는 일회용 클래스) */
+        System.out.println("======= 익명 일회용 클래스 가격 내림차순 정렬 =======");
         bookList.sort(new Comparator<BookDTO>() {
             @Override
             public int compare(BookDTO o1, BookDTO o2) {
@@ -48,6 +49,7 @@ public class Application2 {
         /* 람다식 사용 (제목 오름차순) */
         /* 인터페이스에 메소드가 하나만 있는 경우,
         * 익명 클래스 대신 람다식을 사용하여 훨씬 간결하게 코드를 작성할 수 있다. */
+        System.out.println("======= 람다식 사용 (제목 오름차순) =======");
         bookList.sort((b1, b2) -> b1.getTitle().compareTo(b2.getTitle()));
         for(BookDTO book : bookList) {
             System.out.println(book);

@@ -8,7 +8,7 @@ public class Application2 {
         /* 빨간색 밑줄에 alt + enter을 누르면, 2가지 옵션이 제공된다.
            메서드에 throw Exception으로 호출한 곳으로 예외처리를 넘길지,
            try,catch로 여기서 예외를 처리할 지 */
-        System.out.println("정상케이스");
+        System.out.println("=======정상케이스=======");
         try {
             // 상품 구매시도
             et.checkEnoughMoney(10000, 300000);
@@ -17,7 +17,7 @@ public class Application2 {
         } catch (Exception e) {
             System.out.println("상품 구입 불가!!");
         }
-        System.out.println("예외 발생 케이스");
+        System.out.println("=======예외 발생 케이스=======");
 
         // 실패 케이스
         // 던져진 예외(Exception)을 받아서, 여기서 책임지고 처리한다.
