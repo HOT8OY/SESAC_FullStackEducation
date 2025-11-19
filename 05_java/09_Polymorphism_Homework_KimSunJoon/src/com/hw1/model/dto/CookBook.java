@@ -9,11 +9,14 @@ public class CookBook extends Book {
         super(title, author, publisher);
         this.coupon = coupon;
     }
-    // toString
+
     @Override
     public String toString() {
-        return "CookBook{}";
+        return "CookBook{" +
+                "coupon=" + coupon +
+                '}';
     }
+
     //getter,setter
     public boolean isCoupon() {
         return coupon;

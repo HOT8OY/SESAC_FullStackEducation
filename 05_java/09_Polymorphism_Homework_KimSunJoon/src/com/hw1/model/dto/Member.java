@@ -7,7 +7,7 @@ public class Member {
     private char gender;
     private int couponCount;
 
-    // 메서드
+    // 생성자
     public Member() {}
     public Member(String name, int age, char gender) {
         this.name = name;
@@ -15,10 +15,14 @@ public class Member {
         this.gender = gender;
     }
 
-    // toString
     @Override
     public String toString() {
-        return "Member{}";
+        return "Member{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", gender=" + gender +
+                ", couponCount=" + couponCount +
+                '}';
     }
 
     // getter, setter

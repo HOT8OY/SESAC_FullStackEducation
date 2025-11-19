@@ -13,11 +13,16 @@ public class Book {
         this.author = author;
         this.publisher = publisher;
     }
-    // toString
+
     @Override
     public String toString() {
-        return "Book{}";
+        return "Book{" +
+                "title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", publisher='" + publisher + '\'' +
+                '}';
     }
+
     // getter, setter
     public String getTitle() {
         return title;

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--  Member DTO bean 등록  -->
+    <bean id="member" class="com.ohgiraffers.common.MemberDTO">
+<!--    이 빈을 생성할 때, 생성자에 아래 값들을 전달해줘~(생성자 기반 의존성 주입)    -->
+<!--    name은 필드 이름으로 입력하겠다, index는 index를 기준으로 입력하겠다는 뜻    -->
+<!--    public MemberDTO(int sequence, String id, String pwd, String name)    -->
+        <constructor-arg index="0" value="1"/>      <!-- 0번 인덱스 파라미터에 숫자 1을 전달 -->
+        <constructor-arg name="id" value="user01"/> <!-- 이름이 'id'인 파라미터에 user01을 전달 -->
+        <constructor-arg index="2" value="pass01"/>
+        <constructor-arg name="name" value="판다"/>
+    </bean>
+</beans>

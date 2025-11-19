@@ -9,11 +9,14 @@ public class AniBook extends Book {
         super(title, author, publisher);
         this.accessAge = accessAge;
     }
-    // toString
+
     @Override
     public String toString() {
-        return "AniBook{}";
+        return "AniBook{" +
+                "accessAge=" + accessAge +
+                '}';
     }
+
     // getter, setter
     public int getAccessAge() {
         return accessAge;

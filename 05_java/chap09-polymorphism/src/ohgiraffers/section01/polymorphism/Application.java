@@ -38,7 +38,7 @@ public class Application {
 
         /* 위와 같은 위험한 상황을 방지하기 위해,
          instanceof 연산자로 가리키는 객체를 확인하고 실행하는 것이 안전하다. */
-        System.out.println("a1은 Tiger 타입인가? " + (a1 instanceof Tiger));     // false
+        System.out.println("a1은 Tiger 타입인가? " + (a1 instanceof Tiger));      // false
 
         if (a1 instanceof Cat) {
             System.out.println("a1은 고양이가 맞군요! 점프!");
