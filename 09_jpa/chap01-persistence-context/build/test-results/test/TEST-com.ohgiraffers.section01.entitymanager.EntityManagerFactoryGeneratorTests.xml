@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ohgiraffers.section01.entitymanager.EntityManagerFactoryGeneratorTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-11-22T07:58:02.678Z" hostname="DESKTOP-GEHIS4F" time="1.751">
+  <properties/>
+  <testcase name="엔티티 매니저 팩토리 생성 확인" classname="com.ohgiraffers.section01.entitymanager.EntityManagerFactoryGeneratorTests" time="1.751"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[11월 22, 2025 4:58:02 오후 org.hibernate.jpa.internal.util.LogHelper logPersistenceUnitInformation
+INFO: HHH000204: Processing PersistenceUnitInfo [name: jpatest]
+11월 22, 2025 4:58:02 오후 org.hibernate.Version logVersion
+INFO: HHH000412: Hibernate ORM core version 6.3.1.Final
+11월 22, 2025 4:58:02 오후 org.hibernate.cache.internal.RegionFactoryInitiator initiateService
+INFO: HHH000026: Second-level cache disabled
+11월 22, 2025 4:58:03 오후 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+WARN: HHH10001002: Using built-in connection pool (not intended for production use)
+11월 22, 2025 4:58:03 오후 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+INFO: HHH10001005: Loaded JDBC driver class: com.mysql.cj.jdbc.Driver
+11월 22, 2025 4:58:03 오후 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+INFO: HHH10001012: Connecting with JDBC URL [jdbc:mysql://localhost:3306/menudb]
+11월 22, 2025 4:58:03 오후 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+INFO: HHH10001001: Connection properties: {password=****, user=ohgiraffers}
+11월 22, 2025 4:58:03 오후 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+INFO: HHH10001003: Autocommit mode: false
+11월 22, 2025 4:58:03 오후 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections <init>
+INFO: HHH10001115: Connection pool size: 20 (min=1)
+11월 22, 2025 4:58:04 오후 org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator initiateService
+INFO: HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+]]></system-err>
+</testsuite>
