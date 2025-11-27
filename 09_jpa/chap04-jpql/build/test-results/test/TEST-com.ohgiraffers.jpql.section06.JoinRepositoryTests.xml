@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ohgiraffers.jpql.section06.JoinRepositoryTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-11-26T01:49:28.241Z" hostname="DESKTOP-GEHIS4F" time="0.796">
+  <properties/>
+  <testcase name="페치 조인 테스트" classname="com.ohgiraffers.jpql.section06.JoinRepositoryTests" time="0.796"/>
+  <system-out><![CDATA[10:49:25.095 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ohgiraffers.jpql.section06.JoinRepositoryTests]: JoinRepositoryTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+10:49:25.188 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ohgiraffers.jpql.Chap04JpqlApplication for test class com.ohgiraffers.jpql.section06.JoinRepositoryTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.0)
+
+2025-11-26T10:49:25.568+09:00  INFO 12080 --- [    Test worker] c.o.jpql.section06.JoinRepositoryTests   : Starting JoinRepositoryTests using Java 21.0.8 with PID 12080 (started by Admin in D:\lecture\09_jpa\chap04-jpql)
+2025-11-26T10:49:25.570+09:00  INFO 12080 --- [    Test worker] c.o.jpql.section06.JoinRepositoryTests   : No active profile set, falling back to 1 default profile: "default"
+2025-11-26T10:49:25.937+09:00  INFO 12080 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-26T10:49:25.957+09:00  INFO 12080 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 JPA repository interfaces.
+2025-11-26T10:49:26.229+09:00  INFO 12080 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-26T10:49:26.273+09:00  INFO 12080 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-11-26T10:49:26.717+09:00  INFO 12080 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-26T10:49:26.756+09:00  INFO 12080 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-11-26T10:49:27.098+09:00  INFO 12080 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@70e1aa20
+2025-11-26T10:49:27.100+09:00  INFO 12080 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-11-26T10:49:27.150+09:00  WARN 12080 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-26T10:49:27.166+09:00  INFO 12080 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/menudb]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.40
+	Default catalog/schema: menudb/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-26T10:49:27.988+09:00  INFO 12080 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-26T10:49:27.995+09:00  INFO 12080 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-26T10:49:28.235+09:00  INFO 12080 --- [    Test worker] c.o.jpql.section06.JoinRepositoryTests   : Started JoinRepositoryTests in 2.919 seconds (process running for 4.184)
+Hibernate: 
+    select
+        m1_0.menu_code,
+        c1_0.category_code,
+        c1_0.category_name,
+        c1_0.ref_category_code,
+        m1_0.menu_name,
+        m1_0.menu_price,
+        m1_0.orderable_status 
+    from
+        tbl_menu m1_0 
+    join
+        tbl_category c1_0 
+            on c1_0.category_code=m1_0.category_code
+]]></system-out>
+  <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Admin\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.17.8\f09415827a71be7ed621c7bd02550678f28bc81c\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+</testsuite>

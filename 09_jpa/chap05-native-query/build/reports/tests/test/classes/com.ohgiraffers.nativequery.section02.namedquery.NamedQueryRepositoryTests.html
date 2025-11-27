@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - NamedQueryRepositoryTests</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>NamedQueryRepositoryTests</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.ohgiraffers.nativequery.section02.namedquery.html">com.ohgiraffers.nativequery.section02.namedquery</a> &gt; NamedQueryRepositoryTests</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.505s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a href="#">Tests</a>
+</li>
+<li>
+<a href="#">Standard output</a>
+</li>
+<li>
+<a href="#">Standard error</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">NamedNativeQuery를 이용한 조회 테스트</td>
+<td class="success">testSelectByNamedNativeQuery()</td>
+<td class="success">0.505s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre id="class-stdout">13:55:01.474 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ohgiraffers.nativequery.section02.namedquery.NamedQueryRepositoryTests]: NamedQueryRepositoryTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:55:01.597 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ohgiraffers.nativequery.Chap05NativeQueryApplication for test class com.ohgiraffers.nativequery.section02.namedquery.NamedQueryRepositoryTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.0)
+
+2025-11-26T13:55:02.039+09:00  INFO 19340 --- [    Test worker] c.o.n.s.n.NamedQueryRepositoryTests      : Starting NamedQueryRepositoryTests using Java 21.0.8 with PID 19340 (started by Admin in D:\lecture\09_jpa\chap05-native-query)
+2025-11-26T13:55:02.040+09:00  INFO 19340 --- [    Test worker] c.o.n.s.n.NamedQueryRepositoryTests      : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2025-11-26T13:55:02.430+09:00  INFO 19340 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-26T13:55:02.455+09:00  INFO 19340 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14 ms. Found 0 JPA repository interfaces.
+2025-11-26T13:55:02.739+09:00  INFO 19340 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-26T13:55:02.790+09:00  INFO 19340 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-11-26T13:55:03.211+09:00  INFO 19340 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-26T13:55:03.247+09:00  INFO 19340 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-11-26T13:55:03.582+09:00  INFO 19340 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1174676f
+2025-11-26T13:55:03.584+09:00  INFO 19340 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-11-26T13:55:03.635+09:00  WARN 19340 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-26T13:55:03.652+09:00  INFO 19340 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/menudb]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.40
+	Default catalog/schema: menudb/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-26T13:55:04.348+09:00  INFO 19340 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-26T13:55:04.364+09:00  INFO 19340 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-26T13:55:04.570+09:00  INFO 19340 --- [    Test worker] c.o.n.s.n.NamedQueryRepositoryTests      : Started NamedQueryRepositoryTests in 2.794 seconds (process running for 4.417)
+Hibernate: 
+    SELECT
+        a.category_code,
+        a.category_name,
+        a.ref_category_code,
+        COALESCE(v.menu_count, 0) menu_count 
+    FROM
+        tbl_category a 
+    LEFT JOIN
+        (SELECT
+            COUNT(*) AS menu_count, b.category_code FROM tbl_menu b 
+        GROUP BY
+            b.category_code) v 
+            ON (a.category_code = v.category_code) 
+    ORDER BY
+        1
+Category{categoryCode=1, categoryName='식사', refCategoryCode=null}/0/
+Category{categoryCode=2, categoryName='음료', refCategoryCode=null}/0/
+Category{categoryCode=3, categoryName='디저트', refCategoryCode=null}/0/
+Category{categoryCode=4, categoryName='한식', refCategoryCode=1}/6/
+Category{categoryCode=5, categoryName='중식', refCategoryCode=1}/3/
+Category{categoryCode=6, categoryName='일식', refCategoryCode=1}/3/
+Category{categoryCode=7, categoryName='퓨전', refCategoryCode=1}/0/
+Category{categoryCode=8, categoryName='커피', refCategoryCode=2}/3/
+Category{categoryCode=9, categoryName='쥬스', refCategoryCode=2}/1/
+Category{categoryCode=10, categoryName='기타', refCategoryCode=2}/6/
+Category{categoryCode=11, categoryName='동양', refCategoryCode=3}/2/
+Category{categoryCode=12, categoryName='서양', refCategoryCode=3}/4/
+Category{categoryCode=123, categoryName='분식', refCategoryCode=null}/1/
+Category{categoryCode=321, categoryName='분식퓨전', refCategoryCode=null}/1/
+</pre>
+<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="class-stdout">Copy</button>
+</span>
+</div>
+<div class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre id="class-stderr">Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Admin\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.17.8\f09415827a71be7ed621c7bd02550678f28bc81c\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+</pre>
+<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="class-stderr">Copy</button>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 9.2.1</a> at 2025. 11. 26. 오후 1:55:05</p>
+</div>
+</div>
+</body>
+</html>
