@@ -15,4 +15,5 @@ public class MenuResponseDTO {
     private String menuName;
     private int menuPrice;
     private String orderableStatus;
+    private CategoryDTO category;
 }

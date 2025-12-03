@@ -22,4 +22,18 @@ public class Menu {
     private Category category;
     private String orderableStatus;
 
+    public void modify(String menuName, int menuPrice, Category category, String orderableStatus) {
+        this.menuName = menuName;
+        this.menuPrice = menuPrice;
+        this.category = category;
+        this.orderableStatus = orderableStatus;
+    }
+
+    public void modifyMenuPrice(int menuPrice){
+        this.menuPrice = menuPrice;
+    }
+    public void modifyMenuName(String menuName) {
+        this.menuName = menuName;
+    }
+
 }
