@@ -41,4 +41,4 @@ user_info = {'name': '판다', 'age': '5'}
 # .values() : value 값을 가져온다.
 # .items() : key와 value를 한 쌍으로 가져온다.
 for key, value in user_info.items():
-    print(f"- {key}: {value}")
+    print(f"- {key}: {value}") # - name: 판다 - age: 5

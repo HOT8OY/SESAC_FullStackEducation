@@ -27,7 +27,7 @@ print(f"이름 길이 : {name_lengths}") # 이름 길이 : {'홍길동': 3, '신
 add = lambda a,b: a + b
 print(f"결과: {add(10, 20)}")
 
-# 함수의 인자로 사용 방법
+# 람다 함수의 진짜 용도 : 함수의 인자로 사용될 때
 students = [
     {'name':'홍길동', 'score':90},
     {'name':'이순신', 'score':79},
@@ -37,4 +37,4 @@ students = [
 # 그 s에서 'score'키의 값을 뽑아 리턴하겠다 라는 뜻
 # 최종적으로 람다 함수가 리턴 해주는 score값을 보고 순서 정렬
 students.sort(key=lambda s: s['score'], reverse=True)   # 내림차순 정렬
-print(f"성적순 정렬: {students}")
+print(f"성적순 정렬: {students}")   # 성적순 정렬: [{'name': '홍길동', 'score': 90}, {'name': '신사임당', 'score': 83}, {'name': '이순신', 'score': 79}]

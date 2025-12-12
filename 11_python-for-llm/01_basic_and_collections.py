@@ -58,4 +58,8 @@ prices = [10000, 20000]
 # [깊은 복사] .copy()를 사용. 값 자체를 복사한 새 객체 생성
 new_prices = prices.copy()
 new_prices[0] = 9999
-print(f"깊은 복사 원본 : {prices}, 복사본: {new_prices}")
+print(f"깊은 복사 원본 : {prices}, 복사본: {new_prices}") # 원본은 그대로 유지
+
+# .copy()도 내부에 리스트가 또 들어있으면 완벽하게 복사되지는 않는 '얕은 복사'의 일종이지만,
+# 우리가 다룰 1차원 데이터에서는 '깊은 복사'처럼 동작한다
+# ( 완전한 깊은 복사는 import copy 후 copy.deepcopy()를 사용하면 된다. )
