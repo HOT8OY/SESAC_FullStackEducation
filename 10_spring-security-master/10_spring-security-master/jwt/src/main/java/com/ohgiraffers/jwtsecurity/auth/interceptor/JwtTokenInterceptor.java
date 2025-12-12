@@ -15,6 +15,7 @@ import java.rmi.RemoteException;
 
 public class JwtTokenInterceptor implements HandlerInterceptor {
 
+    // prehandle : 컨트롤러(핸들러)가 실행되기 전에 요청을 가로채서 실행되는 메소드
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 

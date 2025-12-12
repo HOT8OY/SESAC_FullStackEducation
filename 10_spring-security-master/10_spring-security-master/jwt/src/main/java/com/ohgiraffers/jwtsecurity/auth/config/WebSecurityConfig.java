@@ -49,9 +49,20 @@ public class WebSecurityConfig {
 
         http.csrf(AbstractHttpConfigurer::disable)
 
+                // URL 권한 설정
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+//                        .requestMatchers("/api/v1/user/**").hasAnyRole("USER", "ADMIN")
+//                        .requestMatchers("api/v1/public/**").permitAll()
+//                        .anyRequest().authenticated())
+
+                // 필터 추가
+                // jwtAuthorizationFilter : 토큰 인증 후 사용자 인증 정보를 세팅해주는 역할.
                 .addFilterBefore(jwtAuthorizationFilter(), BasicAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // 시큐리티가 제공하는 기본 로그인창을 쓰지 않겠다.
                 .formLogin(form -> form.disable())
+                // 시큐리티가 제공하는 기본 인증을 쓰지 않겠다. -> 우리가 지정해준 인증 절차로 처리되게끔.
                 .httpBasic(basic -> basic.disable())
                 .addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
@@ -108,8 +119,10 @@ public class WebSecurityConfig {
     public CustomAuthenticationFilter customAuthenticationFilter() {
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManager());
 
+        // 로그인 요청을 처리할 URL 설정
         customAuthenticationFilter.setFilterProcessesUrl("/login");
 
+        // 핸들러 등록
         customAuthenticationFilter.setAuthenticationSuccessHandler(customAuthLoginSuccessHandler());
         customAuthenticationFilter.setAuthenticationFailureHandler(customAuthLoginFailureHandler());
         customAuthenticationFilter.afterPropertiesSet();

@@ -36,8 +36,10 @@ public class WebConfig implements WebMvcConfigurer {
 
         FilterRegistrationBean<HeaderFilter> registrationBean = new FilterRegistrationBean<HeaderFilter>(createHeaderFilter());
 
+        // 이 필터의 우선순위를 가장 높게 설정.
         registrationBean.setOrder(Integer.MIN_VALUE);
 
+        // 모든 요청 URL 패턴("/*")에 대해 이 필터가 동작하도록 설정.
         registrationBean.addUrlPatterns("/*");
 
         return registrationBean;

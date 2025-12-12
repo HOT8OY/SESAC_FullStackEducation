@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+// 비밀번호를 매칭해서 토큰을 반환해주는 역할
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
@@ -23,7 +24,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         UsernamePasswordAuthenticationToken loginToken = (UsernamePasswordAuthenticationToken) authentication;
 
         String id = loginToken.getName();
-        String pass = (String) loginToken.getCredentials();
+        String pass = (String) loginToken.getCredentials(); // Object를 반환하기 때문에 String으로 다운캐스팅
 
         DetailsUser detailsUser = (DetailsUser) detailsService.loadUserByUsername(id);
 

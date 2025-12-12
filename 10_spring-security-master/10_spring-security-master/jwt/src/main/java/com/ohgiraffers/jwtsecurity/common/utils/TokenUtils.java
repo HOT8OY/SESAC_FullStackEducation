@@ -91,11 +91,12 @@ public class TokenUtils {
      * @return Claims
      */
 
+    // Claims 는 payload에 담긴 데이터를 의미한다.
     public static Claims getClaimsFromToken(String token) {
         return Jwts.parser()
                 .setSigningKey(Base64.getDecoder().decode(jwtSecretKey))
-                .parseClaimsJws(token)
-                .getBody();
+                .parseClaimsJws(token)  // payload, header signature로 분리
+                .getBody();             // payload에 해당하는 데이터를 Claim라는 작은 데이터 당위로 반환 받는다.
     }
 
 

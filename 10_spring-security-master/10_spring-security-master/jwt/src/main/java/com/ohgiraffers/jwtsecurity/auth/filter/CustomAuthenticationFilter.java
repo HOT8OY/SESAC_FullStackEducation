@@ -58,10 +58,15 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     private UsernamePasswordAuthenticationToken getAuthRequest(HttpServletRequest request) throws IOException {
 
+        // JsonParser에 대한 설정으로, 리소스에 대하 우리가 판단할 수 있는 리소스가 아니면 자동으로 close
         objectMapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);
 
+        // request의 input stream에서 JSON 데이터를 읽어 LoginDTO로 반환
+        // 즉, 로그인 요청을 받을 때 정보를 dto로 받게끔
+        // LoginDTO필드명과 프론트엔드에서 보내는 JSON 키값이 일치해야 한다. (LoginDTO에 Getter도 반드시 있어야 함.)
         LoginDTO user = objectMapper.readValue(request.getInputStream(), LoginDTO.class);
 
+        // id와 pwd 기반으로 아직 인증되지 않은 임시토큰 생성
         return new UsernamePasswordAuthenticationToken(user.getUserId(), user.getUserPass());
     }
 }
