@@ -47,3 +47,17 @@ with col1:
         # TTS (받아온 response를 음성으로 변환)
         audio_tag = openai_api.tts(response)
         st.html(audio_tag)
+
+with col2:
+    st.subheader("질문/답변")
+    if(audio.duration_seconds > 0) and (not st.session_state['check_reset']):
+        for i, message in enumerate(st.session_state['messages']):  # message의 role,content를 가져와서 role,content에 담음
+            role = message['role']
+            content = message['content']
+            if role == 'user':
+                msg(content, is_user=True, key=str(i), avatar_style="bit-smile") # is_user : 메시지의 정렬 방식을 정함
+            elif role == 'assistant':
+                msg(content, is_user=False, key=str(i), avatar_style="croodles-neutral")
+    else:
+        # 초기화 버튼 : 화면 정리와 check_reset 원상복구
+        st.session_state['check_reset'] = False
