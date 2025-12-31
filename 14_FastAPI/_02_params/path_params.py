@@ -1,22 +1,23 @@
 from fastapi import APIRouter
 
-router = APIRouter(prefix='/path_params', tags=['path_params'])
+router = APIRouter(prefix='/path_params', tags=['path_params']) # RequestMapping
 
 # 경로매개변수
-@router.get("/items/{item_id}")
+@router.get("/items/{item_id}") # router가 앞에 붙어있다면 위에서 지정한 /path_params/items/{item_id}로 라우팅 된다.
 async def read_item(item_id: int):
     return {"item_id": item_id}
 
 """
 경로 작동은 순차적으로 실행되기 때문에 /users/{user_id} 이전에 /users/me를 먼저 선언해야 한다.
 """
-# 고정된 경로를 항상 동적 경로('/users/{user_id}'/)보다 위에 작성해야 한다.
-@router.get("/users/me")
+# /users/{user_id}가 /users/me보다 위에 있을 경우 /users/me를 입력하면 /users/{me}로 인식이 되어버린다.
+# 그러므로 고정된 경로를 항상 동적 경로('/users/{user_id}'/)보다 위에 작성해야 한다.
+@router.get("/users/me")    # 고정된 경로(동적 경로보다 위에 작성해야 함)
 async def read_user_me():
     return {"user_id": "the current user"}
 
 
-@router.get("/users/{user_id}")
+@router.get("/users/{user_id}") # 동적 경로
 async def read_user(user_id: str):
     return {"user_id": user_id}
 
@@ -33,7 +34,7 @@ Enum을 이용해서 매개변수를 지정한 값목록안에서만 처리할 �
     위와 같이 쓰지 않고, 직접 비교 가능하다.
     - enum객체 == 'alexnet'
 """
-class ModelName(StrEnum):
+class ModelName(StrEnum):   # Enum
     alexnet = "alexnet"
     resnet = "resnet"
     lenet = "lenet"
